@@ -46,6 +46,7 @@ export default async function Layout({params, children}) {
 								href={`/${params.ciklus}/szavazas/${params.date}/${szavazas["$"][
 									"idopont"
 								].substring(11)}/`}
+								key={szavazas["$"]["idopont"]}
 							>
 								<li key={szavazas["$"]["idopont"]}>
 									<p>

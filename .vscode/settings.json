@@ -1,0 +1,4 @@
+{
+	"appService.defaultWebAppToDeploy": "undefined/subscriptions/67870740-2877-47a9-8d61-a2f2ee97b4cb/resourceGroups/parlamentfigyeloApp-rg/providers/Microsoft.Web/sites/parlamentfigyelo",
+	"appService.deploySubpath": "web\\frontend"
+}
