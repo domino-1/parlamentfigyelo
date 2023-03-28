@@ -1,0 +1,35 @@
+nav.menu, main.content {
+  min-height: calc(100vh - 5px);
+}
+
+.menu {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background-color: #2F2F2F;
+  color: white;
+}
+
+.menu .title {
+  padding: 1rem;
+  font-size: 20px;
+  font-weight: light;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: 1px solid #444;
+}
+
+.menu .title p {
+  font-size: 16px;
+}
+
+.content {
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+}
+
+.msg {
+  color: gray;
+}

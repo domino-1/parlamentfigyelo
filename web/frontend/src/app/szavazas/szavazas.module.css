@@ -1,0 +1,69 @@
+nav.menu, main.content {
+    height: calc(100vh - 5px);
+    max-height: calc(100vh - 5px);
+}
+
+nav.menu {
+    display: flex;
+    flex-direction: column;
+    background-color: #2F2F2F;
+    color: white;
+}
+
+nav.menu .title {
+    padding: 1rem;
+    font-size: 20px;
+    font-weight: light;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-bottom: 2px solid #444;
+}
+
+nav.menu .title p {
+    font-size: 16px;
+}
+
+nav.menu > ul {
+    overflow-x: auto;
+    list-style: none;
+    white-space: break-spaces; /*temp*/
+    scrollbar-width: thin; /*firefox*/
+}
+
+main.content {
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    overflow-x: auto;
+    scrollbar-width: thin;
+}
+
+.msg {
+    color: gray;
+}
+
+nav.menu li {
+    padding: .5rem;
+    line-height: 1.5;
+}
+
+nav.menu li:nth-child(2n) {
+    background-color: #2A2A2A;
+}
+
+nav.menu li p {
+    display: flex;
+    justify-content: space-between;
+}
+
+nav.menu li p:first-of-type {
+    font-weight: bold;
+}
+
+nav.menu li p:last-of-type {
+    font-style: italic;
+}

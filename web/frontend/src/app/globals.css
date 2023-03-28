@@ -1,0 +1,51 @@
+:root {
+  
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    
+  }
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+body {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  background: #1e1e1e;
+  border-top: 5px solid #E7DD03;
+  color: white;
+  position: relative;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
+  }
+}
+
+h2.wordmark {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  color:#E7DD03;
+  font-size: 22px;
+  font-family: 'Noto Serif', Georgia, 'Times New Roman', Times, serif;
+}
