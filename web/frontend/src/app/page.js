@@ -5,8 +5,8 @@ import styles from "./page.module.css";
 
 const inter = Inter({subsets: ["latin"]});
 
+const latestCiklus = 42;
+
 export default function Home() {
-	return redirect(
-		`42/szavazas/${new Date().toJSON().slice(0, 10).replace(/-/g, "")}` //toda: point this to latest
-	);
+	return redirect(`${latestCiklus}/szavazas/`);
 }

@@ -30,3 +30,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+#web
+/src/app/test

@@ -34,32 +34,39 @@ export default async function Page({params, searchParams}) {
 			<p>&nbsp;</p>
 			<p>{JSON.stringify(data["szavazas"]["szavazas"][0]["inditvanyok"])}</p>
 			<p>&nbsp;</p>
-			<ul className={styles.szavazas_eredmeny}>
-				<li className={styles.Igen}>
-					<h3>IGEN</h3>
-				</li>
-				<li className={styles.Nem}>
-					<h3>NEM</h3>
-				</li>
-				<li>
-					<h3>EGYÉBB</h3>
-				</li>
-				{data["szavazas"]["szavazas"][0]["nev_szerint"][0]["szavazat"].map((szavazat) => (
-					<li
-						key={szavazat["$"]["kepviselo"]}
-						className={
-							styles[
-								szavazat["$"]["szavazat"]
-									.replace(/ /g, "_")
-									.replace(/Tart./, "Tartózkodik")
-							]
-						}
-						title={szavazat["$"]["szavazat"].replace(/Tart./, "Tartózkodik")}
-					>
-						{szavazat["$"]["kepviselo"]}
+			{data["szavazas"]["szavazas"][0]["tulajdonsagok"][0]["tulajdonsag"][0]["$"]["ertek"] ===
+			"Listás" ? (
+				<ul className={styles.szavazas_eredmeny}>
+					<li className={styles.Igen}>
+						<h3>IGEN</h3>
 					</li>
-				))}
-			</ul>
+					<li className={styles.Nem}>
+						<h3>NEM</h3>
+					</li>
+					<li>
+						<h3>EGYÉBB</h3>
+					</li>
+					{data["szavazas"]["szavazas"][0]["nev_szerint"][0]["szavazat"].map(
+						(szavazat) => (
+							<li
+								key={szavazat["$"]["kepviselo"]}
+								className={
+									styles[
+										szavazat["$"]["szavazat"]
+											.replace(/ /g, "_")
+											.replace(/Tart./, "Tartózkodik")
+									]
+								}
+								title={szavazat["$"]["szavazat"].replace(/Tart./, "Tartózkodik")}
+							>
+								{szavazat["$"]["kepviselo"]}
+							</li>
+						)
+					)}
+				</ul>
+			) : (
+				<p class={styles.msg}>Ennek a szavazásnak az adatai nem publikusak.</p>
+			)}
 		</>
 	);
 }
