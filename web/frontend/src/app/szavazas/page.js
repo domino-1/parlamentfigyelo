@@ -4,7 +4,8 @@ var xml2js = require("xml2js");
 
 async function getDays(ciklus = 42) {
 	let data = await fetch(
-		`https://www.parlament.hu/cgi-bin/web-api-pub/ulesnap.cgi?access_token=${process.env.PARLAMENT_API_KEY}&p_ckl=${ciklus}`
+		`https://www.parlament.hu/cgi-bin/web-api-pub/ulesnap.cgi?access_token=${process.env.PARLAMENT_API_KEY}&p_ckl=${ciklus}`,
+		{next: {revalidate: 3600}}
 	)
 		.then((response) => response.text())
 		.then(async function (res) {
