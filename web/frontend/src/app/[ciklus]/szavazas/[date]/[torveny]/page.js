@@ -30,10 +30,12 @@ export default async function Page({params, searchParams}) {
 
 	return (
 		<>
+			<h2>Információk</h2>
 			<p>{JSON.stringify(data["szavazas"]["szavazas"][0]["tulajdonsagok"])}</p>
 			<p>&nbsp;</p>
 			<p>{JSON.stringify(data["szavazas"]["szavazas"][0]["inditvanyok"])}</p>
 			<p>&nbsp;</p>
+			<h2>Eredmények</h2>
 			{data["szavazas"]["szavazas"][0]["tulajdonsagok"][0]["tulajdonsag"][0]["$"]["ertek"] ===
 			"Listás" ? (
 				<ul className={styles.szavazas_eredmeny}>
