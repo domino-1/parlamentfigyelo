@@ -1,6 +1,6 @@
 import styles from "../../szavazas.module.css";
 import Link from "next/link";
-var xml2js = require("xml2js");
+const xml2js = require("xml2js");
 
 async function getVoteRes(date = "2023.03.07", time = "00:00:00") {
 	let data = await fetch(
@@ -21,20 +21,98 @@ async function getVoteRes(date = "2023.03.07", time = "00:00:00") {
 	return data;
 }
 
+function padString(input, length, paddingCharacter) {
+	while (input.length < length) {
+		input = paddingCharacter + input;
+	}
+	return input;
+}
+
 export default async function Page({params, searchParams}) {
 	const todayFormated =
 		params.date.slice(0, 4) + "." + params.date.slice(4, 6) + "." + params.date.slice(6, 8);
 	const data = await getVoteRes(todayFormated, params.torveny);
 
+	function iromanyLink(string) {
+		if (string.indexOf("/") === 1) {
+			string = string.slice(2);
+
+			return (
+				"//parlament.hu/irom" +
+				params.ciklus +
+				"/" +
+				padString(string, 5, "0") +
+				"/" +
+				padString(string, 5, "0") +
+				".pdf"
+			);
+		} else if (string.indexOf("/") !== -1) {
+			const coreProposal = string.slice(0, string.indexOf("/"));
+			const proposalNumber = string.slice(string.indexOf("/") + 1);
+
+			return (
+				"//parlament.hu/irom" +
+				params.ciklus +
+				"/" +
+				padString(coreProposal, 5, "0") +
+				"/" +
+				padString(coreProposal, 5, "0") +
+				"-" +
+				padString(proposalNumber, 4, "0") +
+				".pdf"
+			);
+		} else {
+			return "#";
+		}
+	}
+
 	//let szavazasok = data["szavazasok"] ? data["szavazasok"]["szavazas"] : false;
+
+	const tulajdonsagok = data["szavazas"]["szavazas"][0]["tulajdonsagok"][0]["tulajdonsag"];
+	const inditvanyok = data["szavazas"]["szavazas"][0]["inditvanyok"];
 
 	return (
 		<>
 			<h2>Információk</h2>
-			<p>{JSON.stringify(data["szavazas"]["szavazas"][0]["tulajdonsagok"])}</p>
+			{tulajdonsagok.map((tulajdonsag) => {
+				return (
+					<p key="elem">
+						{tulajdonsag["$"]["nev"]}: {tulajdonsag["$"]["ertek"]}
+					</p>
+				);
+			})}
 			<p>&nbsp;</p>
-			<p>{JSON.stringify(data["szavazas"]["szavazas"][0]["inditvanyok"])}</p>
-			<p>&nbsp;</p>
+			{inditvanyok.map((inditvany) => {
+				inditvany = inditvany["inditvany"];
+
+				let out = [];
+
+				inditvany.forEach((info) => {
+					for (const property in info) {
+						out.push(
+							<span>
+								{property.toString().charAt(0).toUpperCase()}
+								{property.toString().slice(1)}:{" "}
+								{property === "benyujto" ? (
+									info[property][0]["$"]["nev"]
+								) : property === "iromany" ? (
+									<Link
+										className={styles.iromany}
+										href={iromanyLink(info[property].toString())}
+									>
+										{info[property].toString()}
+									</Link>
+								) : (
+									info[property].toString()
+								)}
+							</span>
+						);
+					}
+				});
+
+				return out;
+			})}
+			<hr style={{width: "100%", margin: "1rem 0"}} />
 			<h2>Eredmények</h2>
 			{data["szavazas"]["szavazas"][0]["tulajdonsagok"][0]["tulajdonsag"][0]["$"]["ertek"] ===
 			"Listás" ? (

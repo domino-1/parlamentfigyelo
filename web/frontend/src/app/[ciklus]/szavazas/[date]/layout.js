@@ -1,6 +1,8 @@
 import styles from "../szavazas.module.css";
 import Link from "next/link";
-var xml2js = require("xml2js");
+const xml2js = require("xml2js");
+
+import Menu from "@/components/menu";
 
 async function getVotes(date = "2023.03.07") {
 	let data = await fetch(
@@ -32,46 +34,18 @@ export default async function Layout({params, children}) {
 
 	return (
 		<>
-			<nav className={styles.menu}>
-				<div className={styles.title}>
-					<h2>
-						<Link href={`/${params.ciklus}/szavazas/`}>⯇</Link> Ülésnap
-					</h2>
-					<p>{todayFormated.replace(/\./g, ". ") + "."}</p>
-				</div>
-				{szavazasok ? (
-					<ul>
-						{szavazasok.map((szavazas) => (
-							<Link
-								href={`/${params.ciklus}/szavazas/${params.date}/${szavazas["$"][
-									"idopont"
-								].substring(11)}/`}
-								key={szavazas["$"]["idopont"]}
-							>
-								<li key={szavazas["$"]["idopont"]}>
-									<p>
-										<span>{szavazas["$"]["idopont"]}</span>
-										<span>{"Dátum"}</span>
-									</p>
-									<p>
-										{szavazas["inditvanyok"].map((indivany) => (
-											<>
-												<span>{indivany["inditvany"][0]["cim"]}</span>
-												<span>{indivany["inditvany"][0]["iromany"]}</span>
-											</>
-										))}
-									</p>
-								</li>
-							</Link>
-						))}
-					</ul>
-				) : (
-					<p className={styles.msg}>
-						Ezen a napon nem szavaztak semmiről a parlamentben...
-					</p>
-				)}
-			</nav>
-			<main className={[styles.content, "content"].join(" ")}>{children}</main>
+			<Menu
+				ciklus={params.ciklus}
+				date={params.date}
+				dateFormatted={todayFormated}
+				votes={szavazasok}
+			/>
+			<main className={[styles.content, "content"].join(" ")}>
+				<div>{children}</div>
+				<h2 className="wordmark">
+					<Link href="/">parlamentfigyelő</Link>
+				</h2>
+			</main>
 		</>
 	);
 }

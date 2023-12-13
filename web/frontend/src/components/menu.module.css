@@ -1,9 +1,7 @@
-nav.menu, main.content {
+nav.menu {
     height: calc(100vh - 5px);
     max-height: calc(100vh - 5px);
-}
 
-nav.menu {
     display: flex;
     flex-direction: column;
     background-color: var(--secondary-background);
@@ -27,35 +25,16 @@ nav.menu .title p {
     gap: 1rem;
 }
 
-nav.menu > ul {
+nav.menu .title button {
+    display: none;
+}
+
+nav.menu ul {
     overflow-x: auto;
     list-style: none;
     white-space: break-spaces; /*temp*/
     scrollbar-width: none; /*firefox*/
-}
-
-main.content {
-    width: 100%;
-    height: 100%;
-    display: grid;
-    grid-template-rows: 1fr auto;
-    overflow-x: auto;
-    scrollbar-width: thin;
-    position: relative;
-}
-
-@media screen and (max-width: 768px) {
-    main.content {
-        overflow-x: unset;
-    }
-}
-
-main.content > div {
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: start;
+    max-height: 100%;
 }
 
 .msg {
@@ -90,37 +69,20 @@ nav.menu li p:first-of-type {
     font-weight: 200;
 } */
 
-.content ul.szavazas_eredmeny {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    list-style: none;
-    grid-auto-flow: column;
-}
 
-ul.szavazas_eredmeny > li.Nem {
-    grid-column: 2;
-    color: red;
-}
+@media screen and (max-width: 768px) {
+    nav.menu {
+        height: auto;
+    }
 
-ul.szavazas_eredmeny > li.Igen {
-    grid-column: 1;
-    color: green;
-}
+    nav.menu ul {
+        max-height: 50dvh;
+        overflow-y: auto;
 
-ul.szavazas_eredmeny > li {
-    grid-column: 3;
-    color: lightgray;
-}
+        border-bottom: 1px solid var(--border-color);
+    }
 
-ul.szavazas_eredmeny > li.Előre_bejelentett_hiányzó {
-    font-style: italic;
-    color: gray;
-}
-
-ul.szavazas_eredmeny > li.Tartózkodik {
-    color: cyan;
-}
-
-.iromany {
-    color: #3366CC;
+    nav.menu .title button {
+        display: block;
+    }
 }

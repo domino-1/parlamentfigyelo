@@ -1,10 +1,20 @@
 :root {
-  
+  --border-color: #c5c5c5;
+  --main-background: #ffffff;
+  --secondary-background: var(--main-background);
+  --main-color: #000000;
+
+  --list-2n: var(--secondary-background);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    
+    --border-color: #444444;
+    --main-background: #1e1e1e;
+    --secondary-background: #171717/*#2f2f2f*/;
+    --main-color: #ffffff;
+
+    --list-2n: #141414/*#2a2a2a*/;
   }
 }
 
@@ -24,10 +34,16 @@ body {
   display: grid;
   grid-template-columns: 1fr 2fr;
   font-family: 'Inter', Arial, Helvetica, sans-serif;
-  background: #1e1e1e;
+  background: var(--main-background);
   border-top: 5px solid #E7DD03;
-  color: white;
+  color: var(--main-color);
   position: relative;
+}
+
+@media screen and (max-width: 768px) {
+  body {
+    grid-template-columns: 1fr;
+  }
 }
 
 a {
@@ -42,9 +58,14 @@ a {
 }
 
 h2.wordmark {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
+  position: sticky;
+  bottom: 0;
+  right: 0;
+  padding: 20px;
+  width: 100%;
+  background-color: var(--main-background);
+  text-align: end;
+  border-top: 1px solid var(--border-color);
   color:#E7DD03;
   font-size: 22px;
   font-family: 'Noto Serif', Georgia, 'Times New Roman', Times, serif;

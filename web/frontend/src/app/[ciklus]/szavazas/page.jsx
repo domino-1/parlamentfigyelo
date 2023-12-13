@@ -1,11 +1,15 @@
+//"use client"
 import styles from "./szavazas.module.css";
 import Link from "next/link";
 const xml2js = require("xml2js");
+//import { useState } from "react";
+import Check from "@/components/check";
+import { getVotes } from "./[date]/page";
 
 async function getDays(ciklus = 42) {
   let data = await fetch(
     `https://www.parlament.hu/cgi-bin/web-api-pub/ulesnap.cgi?access_token=${process.env.PARLAMENT_API_KEY}&p_ckl=${ciklus}`,
-    { next: { revalidate: 3600 } }
+    { next: { revalidate: 10 /*3600*/ } }
   )
     .then((response) => response.text())
     .then(async function (res) {
@@ -22,28 +26,52 @@ async function getDays(ciklus = 42) {
   return data;
 }
 
-export default async function Page() {
-  const data = await getDays(42);
+export default async function Page({ params }) {
+  const data = await getDays(params.ciklus);
 
   let ulesnapok = data["ulesnapok"]["ulesnap"];
 
-  const ciklusLatest = 42;
+  /*const [emptyDays, setEmptyDays] = useState(false);
+  const onChangeEmptyDays = (e) => {
+    setEmptyDays(e.target.value);
+  };*/
+
+  let hideEmpty = true;
 
   return (
     <>
       <nav className={styles.menu}>
         <div className={styles.title}>
           <h2>Ülésnapok</h2>
-          <p>42. ciklus</p>
+          <p>{params.ciklus}. ciklus</p>
         </div>
-        <ul>
-          {ulesnapok.map((ulnap) => (
+		<div className={styles.settings}>
+      <Check /> (Nem működik)
+		</div>
+        <ul className={styles.alternatingList}>
+          {ulesnapok.map((ulnap) => { 
+
+            // const votesOnUlnap = await getVotes(ulnap["datum"][0].replace(
+            //   /\./g,
+            //   ""
+            // ))["szavazasok"]
+            
+            // let isEmpty = false;
+            // if ( votesOnUlnap === undefined || votesOnUlnap === null ) {
+            //   isEmpty = true;
+            // }
+            // else {
+            //   isEmpty = Object.keys(votesOnUlnap).length == 0;
+            // }
+
+            // if (isEmpty && hideEmpty) return;
+            /*else*/ return (
             <li key={ulnap["ulnap"][0]}>
               <Link
-                href={`./${ciklusLatest}/szavazas/${ulnap["datum"][0].replace(
+                href={`/${params.ciklus}/szavazas/${ulnap["datum"][0].replace(
                   /\./g,
                   ""
-                )}`}
+                )}/`}
               >
                 <>
                   <p>
@@ -62,7 +90,7 @@ export default async function Page() {
                 </>
               </Link>
             </li>
-          ))}
+          )})}
         </ul>
       </nav>
       <main className={[styles.content, "content"].join(" ")}>
