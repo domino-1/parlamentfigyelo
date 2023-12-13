@@ -2,12 +2,6 @@ import styles from "../szavazas.module.css";
 import Link from "next/link";
 var xml2js = require("xml2js");
 
-import {config} from "@fortawesome/fontawesome-svg-core";
-import "@fortawesome/fontawesome-svg-core/styles.css";
-config.autoAddCss = false;
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faBars} from "@fortawesome/pro-solid-svg-icons";
-
 async function getVotes(date = "2023.03.07") {
 	let data = await fetch(
 		`https://www.parlament.hu/cgi-bin/web-api-pub/szavazasok.cgi?access_token=${process.env.PARLAMENT_API_KEY}&p_datum_tol=${date}&p_datum_ig=${date}`,
@@ -45,9 +39,6 @@ export default async function Page({params, searchParams}) {
 						Ülésnap
 					</h2>
 					<p>{todayFormated.replace(/\./g, ". ") + "."}</p>
-					<button>
-						<FontAwesomeIcon icon={faBars} />
-					</button>
 				</div>
 				{szavazasok ? (
 					<ul>
