@@ -113,7 +113,14 @@ export default async function Page({params, searchParams}) {
 
 				return out;
 			})}
-			<hr style={{width: "100%", margin: "1rem 0"}} />
+			<hr
+				style={{
+					width: "100%",
+					margin: "1rem 0",
+					borderTop: 0,
+					borderColor: "var(--border-color)",
+				}}
+			/>
 			<h2>Eredmények</h2>
 			<p>
 				<small>
