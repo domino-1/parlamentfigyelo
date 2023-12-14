@@ -5,7 +5,7 @@ var xml2js = require("xml2js");
 export async function getVotes(date = "2023.03.07") {
 	let data = await fetch(
 		`https://www.parlament.hu/cgi-bin/web-api-pub/szavazasok.cgi?access_token=${process.env.PARLAMENT_API_KEY}&p_datum_tol=${date}&p_datum_ig=${date}`,
-		{next: {revalidate: 10 /*28800*/}}
+		{next: {revalidate: process.env.CACHE_TIME_LONG /*28800*/}}
 	)
 		.then((response) => response.text())
 		.then(async function (res) {

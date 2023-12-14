@@ -4,7 +4,8 @@ const xml2js = require("xml2js");
 
 async function getVoteRes(date = "2023.03.07", time = "00:00:00") {
 	let data = await fetch(
-		`https://www.parlament.hu/cgi-bin/web-api-pub/szavazas.cgi?access_token=${process.env.PARLAMENT_API_KEY}&p_szavdatum=${date}.${time}`
+		`https://www.parlament.hu/cgi-bin/web-api-pub/szavazas.cgi?access_token=${process.env.PARLAMENT_API_KEY}&p_szavdatum=${date}.${time}` /*,
+		{next: {revalidate: process.env.CACHE_TIME_LONG /28800/}} szavazas eredmenyet jo eselyel nem kell frissitgetni*/
 	)
 		.then((response) => response.text())
 		.then(async function (res) {
@@ -114,6 +115,13 @@ export default async function Page({params, searchParams}) {
 			})}
 			<hr style={{width: "100%", margin: "1rem 0"}} />
 			<h2>Eredmények</h2>
+			<p>
+				<small>
+					<span style={{color: "cyan"}}>kék = Tartózkodik, </span>
+					<span style={{color: "white"}}>fehér = Nem szavazott, </span>
+					<span style={{color: "gray"}}>szürke = Előre bejelentett hiányzó</span>
+				</small>
+			</p>
 			{data["szavazas"]["szavazas"][0]["tulajdonsagok"][0]["tulajdonsag"][0]["$"]["ertek"] ===
 			"Listás" ? (
 				<ul className={styles.szavazas_eredmeny}>
