@@ -125,10 +125,8 @@ export default async function Page({params, searchParams}) {
 			<p>
 				<small>
 					<span className={styles.tartozkodik}>kék = Tartózkodik, </span>
-					<span style={{color: "gray"}}>szürke = Előre bejelentett hiányzó</span>
-					<span className={styles.dynamicDefaultColor}>
-						fehér/fekete = Nem szavazott,{" "}
-					</span>
+					<span style={{color: "gray"}}>szürke = Előre bejelentett hiányzó, </span>
+					<span className={styles.dynamicDefaultColor}>fehér/fekete = Nem szavazott</span>
 				</small>
 			</p>
 			{data["szavazas"]["szavazas"][0]["tulajdonsagok"][0]["tulajdonsag"][0]["$"]["ertek"] ===
