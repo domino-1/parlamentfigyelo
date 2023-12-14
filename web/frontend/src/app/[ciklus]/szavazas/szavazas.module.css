@@ -121,6 +121,36 @@ ul.szavazas_eredmeny > li.Tartózkodik {
     color: cyan;
 }
 
+.dynamicDefaultColor {
+    color: #d3d3d3;
+}
+
+.tartozkodik {
+    color: cyan;
+}
+
+@media (prefers-color-scheme: light) {
+    .dynamicDefaultColor {
+        color: black;
+    }
+
+    .tartozkodik {
+        color: blue;
+    }
+
+     ul.szavazas_eredmeny > li {
+        color: black;
+    }
+    
+    ul.szavazas_eredmeny > li.Előre_bejelentett_hiányzó {
+        color: gray;
+    }
+    
+    ul.szavazas_eredmeny > li.Tartózkodik {
+        color: blue;
+    }
+}
+
 .iromany {
     color: #3366CC;
 }

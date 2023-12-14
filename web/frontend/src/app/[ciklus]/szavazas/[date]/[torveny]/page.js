@@ -124,9 +124,11 @@ export default async function Page({params, searchParams}) {
 			<h2>Eredmények</h2>
 			<p>
 				<small>
-					<span style={{color: "cyan"}}>kék = Tartózkodik, </span>
-					<span style={{color: "white"}}>fehér = Nem szavazott, </span>
+					<span className={styles.tartozkodik}>kék = Tartózkodik, </span>
 					<span style={{color: "gray"}}>szürke = Előre bejelentett hiányzó</span>
+					<span className={styles.dynamicDefaultColor}>
+						fehér/fekete = Nem szavazott,{" "}
+					</span>
 				</small>
 			</p>
 			{data["szavazas"]["szavazas"][0]["tulajdonsagok"][0]["tulajdonsag"][0]["$"]["ertek"] ===
